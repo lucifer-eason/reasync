@@ -1,3 +1,4 @@
+
 function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -10,7 +11,11 @@ function login() {
     })
     .catch((error) => {
       msg.style.color = "red";
-      msg.textContent = error.message;
+      if (error.code === "auth/invalid-login-credentials") {
+        msg.textContent = "Invalid email or password.";
+      } else {
+        msg.textContent = error.message;
+      }
     });
 }
 
@@ -22,15 +27,10 @@ function signup() {
   auth.createUserWithEmailAndPassword(email, password)
     .then((user) => {
       msg.style.color = "green";
-      msg.textContent = "Signup successful!";
+      msg.textContent = "Account created successfully!";
     })
     .catch((error) => {
-  msg.style.color = "red";
-  if (error.code === "auth/invalid-login-credentials") {
-    msg.textContent = "Invalid email or password. Please try again or sign up.";
-  } else {
-    msg.textContent = error.message;
-  }
-});
-
+      msg.style.color = "red";
+      msg.textContent = error.message;
+    });
 }
