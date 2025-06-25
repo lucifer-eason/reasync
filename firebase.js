@@ -1,4 +1,3 @@
-
 const firebaseConfig = {
   apiKey: "AIzaSyDMZe2UpzMjaXCr2Jbr9OhofcWGO83z_hI",
   authDomain: "reasync.firebaseapp.com",
