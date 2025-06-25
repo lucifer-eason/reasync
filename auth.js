@@ -1,9 +1,16 @@
-
 function login() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const msg = document.getElementById("msg");
   msg.textContent = '';
+
+  // ✅ 本地表单校验
+  if (!email || !password) {
+    msg.style.color = "red";
+    msg.textContent = "Please enter both email and password.";
+    return;
+  }
+
   auth.signInWithEmailAndPassword(email, password)
     .then((user) => {
       msg.style.color = "green";
@@ -20,10 +27,24 @@ function login() {
 }
 
 function signup() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const msg = document.getElementById("msg");
   msg.textContent = '';
+
+  // ✅ 本地表单校验
+  if (!email || !password) {
+    msg.style.color = "red";
+    msg.textContent = "Please enter both email and password.";
+    return;
+  }
+
+  if (password.length < 6) {
+    msg.style.color = "red";
+    msg.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+
   auth.createUserWithEmailAndPassword(email, password)
     .then((user) => {
       msg.style.color = "green";
