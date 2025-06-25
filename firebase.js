@@ -1,4 +1,3 @@
-// firebase.js
 const firebaseConfig = {
   apiKey: "AIzaSyDMZe2UpzMjaXCr2Jbr9OhofcWGO83z_hI",
   authDomain: "reasync.firebaseapp.com",
@@ -9,7 +8,5 @@ const firebaseConfig = {
   measurementId: "G-KGDDN74GZ5"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-window.auth = auth;
+window.auth = firebase.auth();

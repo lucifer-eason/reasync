@@ -1,30 +1,31 @@
-// auth.js
-async function login() {
+function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const msg = document.getElementById("msg");
   msg.textContent = '';
-  try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    msg.style.color = 'green';
-    msg.textContent = `Login success! Welcome ${userCredential.user.email}`;
-  } catch (e) {
-    msg.style.color = 'red';
-    msg.textContent = `Login failed: ${e.message}`;
-  }
+  auth.signInWithEmailAndPassword(email, password)
+    .then((user) => {
+      msg.style.color = "green";
+      msg.textContent = "Welcome, " + user.user.email;
+    })
+    .catch((error) => {
+      msg.style.color = "red";
+      msg.textContent = error.message;
+    });
 }
 
-async function signup() {
+function signup() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const msg = document.getElementById("msg");
   msg.textContent = '';
-  try {
-    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-    msg.style.color = 'green';
-    msg.textContent = `Signup success! Welcome ${userCredential.user.email}`;
-  } catch (e) {
-    msg.style.color = 'red';
-    msg.textContent = `Signup failed: ${e.message}`;
-  }
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      msg.style.color = "green";
+      msg.textContent = "Signup successful!";
+    })
+    .catch((error) => {
+      msg.style.color = "red";
+      msg.textContent = error.message;
+    });
 }
