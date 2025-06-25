@@ -1,13 +1,21 @@
-const msg = document.getElementById("msg");
+
+let generatedCode = "";
+
+function sendCode() {
+  generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+  alert("Your verification code is: " + generatedCode);
+}
 
 function signup() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
+  const code = document.getElementById("code").value.trim();
+  const msg = document.getElementById("msg");
   msg.textContent = '';
 
-  if (!email || !password) {
+  if (!email || !password || !code) {
     msg.style.color = "red";
-    msg.textContent = "Please enter both email and password.";
+    msg.textContent = "Please fill in all fields.";
     return;
   }
 
@@ -17,28 +25,34 @@ function signup() {
     return;
   }
 
+  if (code !== generatedCode) {
+    msg.style.color = "red";
+    msg.textContent = "Incorrect verification code.";
+    return;
+  }
+
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      user.sendEmailVerification()
-        .then(() => {
-          msg.style.color = "green";
-          msg.textContent = "Account created! Please check your email to verify your account.";
-        })
-        .catch((error) => {
-          msg.style.color = "red";
-          msg.textContent = "Failed to send verification email: " + error.message;
-        });
+      user.sendEmailVerification().then(() => {
+        msg.style.color = "green";
+        msg.textContent = "Registered! Please verify your email.";
+      });
     })
     .catch((error) => {
       msg.style.color = "red";
-      msg.textContent = error.message;
+      if (error.code === "auth/email-already-in-use") {
+        msg.textContent = "This email is already registered. Try logging in.";
+      } else {
+        msg.textContent = error.message;
+      }
     });
 }
 
 function login() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
+  const msg = document.getElementById("msg");
   msg.textContent = '';
 
   if (!email || !password) {
@@ -57,22 +71,17 @@ function login() {
       } else {
         msg.style.color = "green";
         msg.textContent = "Welcome, " + user.email;
-        // TODO: 登录成功后跳转主页，比如：
-        // window.location.href = "dashboard.html";
       }
     })
     .catch((error) => {
       msg.style.color = "red";
-      if (error.code === "auth/invalid-login-credentials") {
-        msg.textContent = "Invalid email or password.";
-      } else {
-        msg.textContent = error.message;
-      }
+      msg.textContent = error.message;
     });
 }
 
 function resetPassword() {
   const email = document.getElementById("email").value.trim();
+  const msg = document.getElementById("msg");
   msg.textContent = '';
 
   if (!email) {
@@ -84,7 +93,7 @@ function resetPassword() {
   auth.sendPasswordResetEmail(email)
     .then(() => {
       msg.style.color = "green";
-      msg.textContent = "Password reset email sent! Please check your inbox.";
+      msg.textContent = "Password reset email sent.";
     })
     .catch((error) => {
       msg.style.color = "red";
