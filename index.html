@@ -2,63 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Site</title>
+  <title>Reasync</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    #user-area {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    header {
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    #user-area button {
-      padding: 8px 12px;
-      font-size: 14px;
+    .btns button {
+      margin-left: 0.8rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btns button:hover {
+      background: #0056b3;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #222;
+    }
+    p {
+      margin-top: 1rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo"><strong>Reasync</strong></div>
+    <div class="btns">
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='signup.html'">Sign Up</button>
+    </div>
+  </header>
 
-  <h1>欢迎来到首页</h1>
-  <p>这是你的网站首页内容。</p>
-
-  <!-- ✅ 右上角用户区域 -->
-  <div id="user-area">
-    <button onclick="window.location.href='login.html'">Login</button>
-  </div>
-
-  <!-- ✅ Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
-  <!-- ✅ 你的 Firebase 配置 -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "SENDER_ID",
-      appId: "APP_ID"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
-
-  <!-- ✅ 登录状态检查脚本 -->
-  <script>
-    firebase.auth().onAuthStateChanged((user) => {
-      const userArea = document.getElementById("user-area");
-      if (user) {
-        const name = user.email.split("@")[0];  // 用邮箱前缀作为用户名
-        userArea.innerHTML = `<span>👋 Hello, <b>${name}</b></span>`;
-      } else {
-        userArea.innerHTML = `<button onclick="window.location.href='login.html'">Login</button>`;
-      }
-    });
-  </script>
-
+  <main>
+    <div>
+      <h1>Welcome to Reasync</h1>
+      <p>Effortless async collaboration for modern teams.</p>
+    </div>
+  </main>
 </body>
 </html>
