@@ -25,7 +25,12 @@ function signup() {
       msg.textContent = "Signup successful!";
     })
     .catch((error) => {
-      msg.style.color = "red";
-      msg.textContent = error.message;
-    });
+  msg.style.color = "red";
+  if (error.code === "auth/invalid-login-credentials") {
+    msg.textContent = "Invalid email or password. Please try again or sign up.";
+  } else {
+    msg.textContent = error.message;
+  }
+});
+
 }
