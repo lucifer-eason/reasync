@@ -1,28 +1,67 @@
-function login() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const msg = document.getElementById("msg");
-  msg.textContent = '';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.6rem;
+      font-size: 1rem;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    
+    <!-- ✅ 修正后的按钮调用 login() 函数 -->
+    <button onclick="login()">Login</button>
+    
+    <p id="msg"></p>
+    
+    <!-- 忘记密码 -->
+    <button onclick="resetPassword()" style="background:none;color:#007bff;border:none;cursor:pointer;">
+      Forgot Password?
+    </button>
+  </div>
 
-  if (!email || !password) {
-    msg.style.color = "red";
-    msg.textContent = "Please enter both email and password.";
-    return;
-  }
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-  auth.signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
+  <!-- Firebase 初始化 -->
+  <script src="firebase.js"></script>
 
-      // ✅ 不再检查邮箱是否验证，允许直接登录
-      msg.style.color = "green";
-      msg.textContent = "Welcome, " + user.email;
-
-      // 可跳转主页：
-      // window.location.href = "index.html";
-    })
-    .catch((error) => {
-      msg.style.color = "red";
-      msg.textContent = error.message;
-    });
-}
+  <!-- 登录逻辑 -->
+  <script src="auth.js"></script>
+</body>
+</html>
