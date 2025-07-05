@@ -1,50 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Reasync</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header {
-      background: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    main {
-      height: calc(100vh - 80px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-    button {
-      margin: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-      background: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover { background: #0056b3; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generals Conquest - Real-time Strategy Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-custom {
+            animation: pulse 2s infinite;
+        }
+        .game-cell {
+            transition: all 0.2s ease;
+        }
+        .game-cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1>Reasync</h1>
-    <div>
-      <button onclick="location.href='login.html'">Login</button>
-      <button onclick="location.href='signup.html'">Sign Up</button>
-    </div>
-  </header>
-  <main>
-    <h2>Welcome to Reasync</h2>
-    <p>Simple async collaboration, made easy.</p>
-  </main>
+<body class="bg-gray-900 text-white font-sans">
+    <!-- Header -->
+    <header class="gradient-bg shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-chess-king text-2xl text-yellow-400"></i>
+                <h1 class="text-2xl font-bold">Generals<span class="text-yellow-400">Conquest</span></h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-yellow-400 transition">Play</a>
+                <a href="#" class="hover:text-yellow-400 transition">How to Play</a>
+                <a href="#" class="hover:text-yellow-400 transition">Leaderboard</a>
+                <a href="#" class="hover:text-yellow-400 transition">Community</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-4 py-2 rounded transition">
+                    Sign Up
+                </button>
+                <button class="md:hidden text-2xl" id="mobile-menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-blue-900" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#" class="hover:text-yellow-400 transition py-2 border-b border-blue-800">Play</a>
+                <a href="#" class="hover:text-yellow-400 transition py-2 border-b border-blue-800">How to Play</a>
+                <a href="#" class="hover:text-yellow-400 transition py-2 border-b border-blue-800">Leaderboard</a>
+                <a href="#" class="hover:text-yellow-400 transition py-2">Community</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Command Your Army. Conquer the World.</h2>
+                <p class="text-xl mb-8 text-gray-300">A fast-paced real-time strategy game where you battle against players worldwide to expand your territory and capture the enemy general.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-6 py-3 rounded-lg transition flex items-center justify-center">
+                        <i class="fas fa-play mr-2"></i> Play Now
+                    </button>
+                    <button class="bg-transparent hover:bg-blue-800 text-white font-bold px-6 py-3 rounded-lg border border-white transition flex items-center justify-center">
+                        <i class="fas fa-question-circle mr-2"></i> Learn How to Play
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="bg-gray-800 p-2 rounded-lg shadow-2xl">
+                        <div id="mini-game" class="grid grid-cols-10 gap-1 w-64 h-64">
+                            <!-- Game cells will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 bg-yellow-500 text-gray-900 font-bold px-4 py-2 rounded-lg shadow-lg">
+                        Live Match Preview
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Why Players Love GeneralsConquest</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-yellow-400 text-4xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Fast-Paced Gameplay</h3>
+                    <p class="text-gray-300">Quick 5-15 minute matches that test your strategy and reflexes against real opponents.</p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-yellow-400 text-4xl mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Massive Community</h3>
+                    <p class="text-gray-300">Join thousands of active players in daily battles and tournaments.</p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-yellow-400 text-4xl mb-4">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Competitive Ranking</h3>
+                    <p class="text-gray-300">Climb the leaderboards and prove you're the best strategist.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modes -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Game Modes</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-blue-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-40 bg-blue-800 flex items-center justify-center">
+                        <i class="fas fa-user-friends text-6xl text-yellow-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">1v1 Duel</h3>
+                        <p class="text-gray-300 mb-4">Face off against a single opponent in a battle of wits and strategy.</p>
+                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Play Now →</button>
+                    </div>
+                </div>
+                <div class="bg-purple-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-40 bg-purple-800 flex items-center justify-center">
+                        <i class="fas fa-users text-6xl text-yellow-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Free-for-All</h3>
+                        <p class="text-gray-300 mb-4">Battle against multiple players in a chaotic fight for survival.</p>
+                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Play Now →</button>
+                    </div>
+                </div>
+                <div class="bg-green-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-40 bg-green-800 flex items-center justify-center">
+                        <i class="fas fa-flag text-6xl text-yellow-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Team Battle</h3>
+                        <p class="text-gray-300 mb-4">Join forces with allies to defeat opposing teams.</p>
+                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Play Now →</button>
+                    </div>
+                </div>
+                <div class="bg-red-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
+                    <div class="h-40 bg-red-800 flex items-center justify-center">
+                        <i class="fas fa-crown text-6xl text-yellow-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Tournaments</h3>
+                        <p class="text-gray-300 mb-4">Compete in scheduled events for glory and prizes.</p>
+                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Join Now →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">What Players Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center text-xl font-bold mr-4">JD</div>
+                        <div>
+                            <h4 class="font-bold">JohnDoe42</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">"Addictive gameplay with just the right amount of strategy. I've been playing daily for months!"</p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-xl font-bold mr-4">SR</div>
+                        <div>
+                            <h4 class="font-bold">StrategyQueen</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">"Finally a game that rewards real tactical thinking rather than just quick clicks."</p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-xl font-bold mr-4">TG</div>
+                        <div>
+                            <h4 class="font-bold">TheGeneral</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">"The perfect balance between simplicity and depth. Every match feels different."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 gradient-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Command Your Army?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto text-gray-300">Join thousands of players in epic strategic battles. No download required - play instantly in your browser!</p>
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-8 py-4 rounded-lg text-lg transition animate-pulse-custom">
+                <i class="fas fa-play mr-2"></i> Play Now - It's Free!
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <i class="fas fa-chess-king text-2xl text-yellow-400"></i>
+                    <h2 class="text-xl font-bold">Generals<span class="text-yellow-400">Conquest</span></h2>
+                </div>
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-reddit"></i></a>
+                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    &copy; 2023 GeneralsConquest. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Mini game simulation
+        const miniGame = document.getElementById('mini-game');
+        const colors = [
+            'bg-gray-600', // Empty
+            'bg-blue-500', // Player 1
+            'bg-red-500',  // Player 2
+            'bg-green-500', // Player 3
+            'bg-purple-500', // Player 4
+            'bg-yellow-500 border-2 border-yellow-700', // General
+            'bg-gray-300', // Mountain
+            'bg-blue-200', // City
+        ];
+
+        // Create game grid
+        for (let i = 0; i < 100; i++) {
+            const cell = document.createElement('div');
+            cell.className = `game-cell w-full h-full rounded-sm ${colors[Math.floor(Math.random() * colors.length)]}`;
+            miniGame.appendChild(cell);
+        }
+
+        // Animate some cells to simulate gameplay
+        setInterval(() => {
+            const cells = miniGame.querySelectorAll('.game-cell');
+            const randomIndex = Math.floor(Math.random() * cells.length);
+            
+            // Reset all cells first
+            cells.forEach(cell => {
+                if (cell.classList.contains('bg-blue-600')) {
+                    cell.classList.remove('bg-blue-600');
+                    cell.classList.add('bg-blue-500');
+                }
+                if (cell.classList.contains('bg-red-600')) {
+                    cell.classList.remove('bg-red-600');
+                    cell.classList.add('bg-red-500');
+                }
+            });
+            
+            // Highlight a random cell
+            if (cells[randomIndex].classList.contains('bg-blue-500')) {
+                cells[randomIndex].classList.remove('bg-blue-500');
+                cells[randomIndex].classList.add('bg-blue-600');
+            } else if (cells[randomIndex].classList.contains('bg-red-500')) {
+                cells[randomIndex].classList.remove('bg-red-500');
+                cells[randomIndex].classList.add('bg-red-600');
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
