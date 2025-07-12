@@ -3,314 +3,645 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generals Conquest - Real-time Strategy Game</title>
+    <title>Global Youth Connect | Entrepreneur Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
-        .animate-pulse-custom {
-            animation: pulse 2s infinite;
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
         }
-        .game-cell {
-            transition: all 0.2s ease;
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .game-cell:hover {
-            transform: scale(1.05);
-            z-index: 10;
+        .transition-all {
+            transition: all 0.3s ease;
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+        }
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background-color: #3b82f6;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
-    <!-- Header -->
-    <header class="gradient-bg shadow-lg">
+<body class="bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <i class="fas fa-chess-king text-2xl text-yellow-400"></i>
-                <h1 class="text-2xl font-bold">Generals<span class="text-yellow-400">Conquest</span></h1>
+                <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
+                <span class="text-xl font-bold text-blue-600">GlobalYouthConnect</span>
             </div>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#" class="hover:text-yellow-400 transition">Play</a>
-                <a href="#" class="hover:text-yellow-400 transition">How to Play</a>
-                <a href="#" class="hover:text-yellow-400 transition">Leaderboard</a>
-                <a href="#" class="hover:text-yellow-400 transition">Community</a>
+            
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <i class="fas fa-bars text-gray-700 text-xl"></i>
+            </button>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 transition-all">Home</a>
+                <a href="#features" class="text-gray-700 hover:text-blue-600 transition-all">Features</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-blue-600 transition-all">Success Stories</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-all">Contact</a>
+                <div class="flex space-x-4">
+                    <a href="#" class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-all">Login</a>
+                    <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">Join Now</a>
+                </div>
             </nav>
-            <div class="flex items-center space-x-4">
-                <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-4 py-2 rounded transition">
-                    Sign Up
-                </button>
-                <button class="md:hidden text-2xl" id="mobile-menu-button">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
         </div>
+        
         <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-blue-900" id="mobile-menu">
-            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-                <a href="#" class="hover:text-yellow-400 transition py-2 border-b border-blue-800">Play</a>
-                <a href="#" class="hover:text-yellow-400 transition py-2 border-b border-blue-800">How to Play</a>
-                <a href="#" class="hover:text-yellow-400 transition py-2 border-b border-blue-800">Leaderboard</a>
-                <a href="#" class="hover:text-yellow-400 transition py-2">Community</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 transition-all">Home</a>
+                <a href="#features" class="text-gray-700 hover:text-blue-600 transition-all">Features</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-blue-600 transition-all">Success Stories</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-all">Contact</a>
+                <div class="flex space-x-4 pt-2">
+                    <a href="#" class="w-1/2 text-center px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-all">Login</a>
+                    <a href="#" class="w-1/2 text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">Join Now</a>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="gradient-bg py-16">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Command Your Army. Conquer the World.</h2>
-                <p class="text-xl mb-8 text-gray-300">A fast-paced real-time strategy game where you battle against players worldwide to expand your territory and capture the enemy general.</p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-6 py-3 rounded-lg transition flex items-center justify-center">
-                        <i class="fas fa-play mr-2"></i> Play Now
-                    </button>
-                    <button class="bg-transparent hover:bg-blue-800 text-white font-bold px-6 py-3 rounded-lg border border-white transition flex items-center justify-center">
-                        <i class="fas fa-question-circle mr-2"></i> Learn How to Play
-                    </button>
-                </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative">
-                    <div class="bg-gray-800 p-2 rounded-lg shadow-2xl">
-                        <div id="mini-game" class="grid grid-cols-10 gap-1 w-64 h-64">
-                            <!-- Game cells will be generated by JavaScript -->
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-4 -right-4 bg-yellow-500 text-gray-900 font-bold px-4 py-2 rounded-lg shadow-lg">
-                        Live Match Preview
-                    </div>
+    <section id="home" class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Connect. Collaborate. Create.</h1>
+                <p class="text-xl mb-8">Join our global platform where young entrepreneurs and students come together to share ideas, find partners, and build the future.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium">Get Started</a>
+                    <a href="#" class="px-8 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-all font-medium">Learn More</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-16 bg-gray-800">
+    <section id="features" class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">Why Players Love GeneralsConquest</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                    <div class="text-yellow-400 text-4xl mb-4">
-                        <i class="fas fa-bolt"></i>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Platform Features</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Designed specifically for young entrepreneurs and students to connect and grow together.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-blue-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Fast-Paced Gameplay</h3>
-                    <p class="text-gray-300">Quick 5-15 minute matches that test your strategy and reflexes against real opponents.</p>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Find Your Team</h3>
+                    <p class="text-gray-600">Connect with like-minded individuals who complement your skills and share your vision for success.</p>
                 </div>
-                <div class="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                    <div class="text-yellow-400 text-4xl mb-4">
-                        <i class="fas fa-users"></i>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-green-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Massive Community</h3>
-                    <p class="text-gray-300">Join thousands of active players in daily battles and tournaments.</p>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Share Ideas</h3>
+                    <p class="text-gray-600">Get feedback on your concepts and collaborate with our global community to refine your ideas.</p>
                 </div>
-                <div class="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                    <div class="text-yellow-400 text-4xl mb-4">
-                        <i class="fas fa-trophy"></i>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-purple-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Competitive Ranking</h3>
-                    <p class="text-gray-300">Climb the leaderboards and prove you're the best strategist.</p>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Grow Together</h3>
+                    <p class="text-gray-600">Access resources, mentorship opportunities, and workshops to accelerate your entrepreneurial journey.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="w-14 h-14 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-globe text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Global Network</h3>
+                    <p class="text-gray-600">Connect with entrepreneurs and students from around the world to gain diverse perspectives.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-tools text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Skill Showcase</h3>
+                    <p class="text-gray-600">Highlight your abilities with our visual profile system that makes your talents stand out.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-calendar-alt text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Events & Workshops</h3>
+                    <p class="text-gray-600">Participate in exclusive events designed to help you develop both personally and professionally.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Game Modes -->
-    <section class="py-16 bg-gray-900">
+    <!-- How It Works Section -->
+    <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">Game Modes</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-blue-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
-                    <div class="h-40 bg-blue-800 flex items-center justify-center">
-                        <i class="fas fa-user-friends text-6xl text-yellow-400"></i>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">How It Works</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Join thousands of young entrepreneurs in just a few simple steps</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-600 font-bold text-2xl">1</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">1v1 Duel</h3>
-                        <p class="text-gray-300 mb-4">Face off against a single opponent in a battle of wits and strategy.</p>
-                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Play Now →</button>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Create Your Profile</h3>
+                    <p class="text-gray-600">Set up your profile in minutes. Highlight your skills, interests, and what you're looking for.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-green-600 font-bold text-2xl">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Connect & Explore</h3>
+                    <p class="text-gray-600">Browse profiles, join discussions, and connect with potential partners worldwide.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-purple-600 font-bold text-2xl">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Collaborate & Grow</h3>
+                    <p class="text-gray-600">Start working together on projects, exchange knowledge, and grow your network.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium inline-block">Join Now - It's Free</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Success Stories</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">See how our members have found success through collaboration</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Sarah Johnson</h4>
+                            <p class="text-blue-600 text-sm">Co-founder, EduTech Solutions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"Through GlobalYouthConnect, I met my co-founder and we've since built an educational platform that's helping thousands of students worldwide."</p>
+                    <div class="flex space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
                     </div>
                 </div>
-                <div class="bg-purple-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
-                    <div class="h-40 bg-purple-800 flex items-center justify-center">
-                        <i class="fas fa-users text-6xl text-yellow-400"></i>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Michael Chen</h4>
+                            <p class="text-blue-600 text-sm">Founder, GreenFuture Apps</p>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Free-for-All</h3>
-                        <p class="text-gray-300 mb-4">Battle against multiple players in a chaotic fight for survival.</p>
-                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Play Now →</button>
+                    <p class="text-gray-600 mb-4">"The diverse perspectives I gained from international connections on this platform completely transformed my approach to sustainability tech."</p>
+                    <div class="flex space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
                     </div>
                 </div>
-                <div class="bg-green-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
-                    <div class="h-40 bg-green-800 flex items-center justify-center">
-                        <i class="fas fa-flag text-6xl text-yellow-400"></i>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-all">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Aisha Mohammed" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Aisha Mohammed</h4>
+                            <p class="text-blue-600 text-sm">CEO, HealthBridge Africa</p>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Team Battle</h3>
-                        <p class="text-gray-300 mb-4">Join forces with allies to defeat opposing teams.</p>
-                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Play Now →</button>
-                    </div>
-                </div>
-                <div class="bg-red-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300">
-                    <div class="h-40 bg-red-800 flex items-center justify-center">
-                        <i class="fas fa-crown text-6xl text-yellow-400"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Tournaments</h3>
-                        <p class="text-gray-300 mb-4">Compete in scheduled events for glory and prizes.</p>
-                        <button class="text-yellow-400 hover:text-yellow-300 font-semibold">Join Now →</button>
+                    <p class="text-gray-600 mb-4">"Finding technical partners for my healthcare startup seemed impossible until I joined this community. We've now expanded to three countries!"</p>
+                    <div class="flex space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star-half-alt text-yellow-400"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-16 bg-gray-800">
+    <!-- Profile Preview Section -->
+    <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">What Players Say</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-700 p-6 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center text-xl font-bold mr-4">JD</div>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Showcase Your Skills</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Our profile system helps you highlight your talents and find the perfect match</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+                <div class="md:flex">
+                    <!-- Profile Image Section -->
+                    <div class="md:w-1/3 bg-blue-600 p-8 flex flex-col items-center justify-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-32 h-32 rounded-full border-4 border-white mb-4">
+                        <h3 class="text-white font-bold text-xl mb-1">Alex Rodriguez</h3>
+                        <p class="text-blue-100 mb-4">Software Developer & Entrepreneur</p>
+                        <div class="flex space-x-4 mb-6">
+                            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-github"></i></a>
+                            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-twitter"></i></a>
+                        </div>
+                        <button class="px-6 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-gray-100 transition-all">Contact</button>
+                    </div>
+                    
+                    <!-- Profile Details Section -->
+                    <div class="md:w-2/3 p-8">
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-3">About</h4>
+                            <p class="text-gray-600">Passionate full-stack developer with experience in building scalable web applications. Currently working on an AI-powered education platform. Looking for a business-minded co-founder to help scale the product.</p>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-800 mb-3">Skills</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">JavaScript</span>
+                                        <span class="text-sm text-gray-500">90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">React</span>
+                                        <span class="text-sm text-gray-500">85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">Node.js</span>
+                                        <span class="text-sm text-gray-500">80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div>
-                            <h4 class="font-bold">JohnDoe42</h4>
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                            <h4 class="font-semibold text-gray-800 mb-3">Projects</h4>
+                            <div class="space-y-4">
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h5 class="font-medium text-gray-800">EduAI Platform</h5>
+                                    <p class="text-sm text-gray-600">AI-powered personalized learning platform currently in beta with 500+ users.</p>
+                                </div>
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h5 class="font-medium text-gray-800">Community Coding</h5>
+                                    <p class="text-sm text-gray-600">Non-profit initiative teaching coding to underprivileged youth in 3 countries.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <p class="text-gray-300">"Addictive gameplay with just the right amount of strategy. I've been playing daily for months!"</p>
-                </div>
-                <div class="bg-gray-700 p-6 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-xl font-bold mr-4">SR</div>
-                        <div>
-                            <h4 class="font-bold">StrategyQueen</h4>
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-300">"Finally a game that rewards real tactical thinking rather than just quick clicks."</p>
-                </div>
-                <div class="bg-gray-700 p-6 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-xl font-bold mr-4">TG</div>
-                        <div>
-                            <h4 class="font-bold">TheGeneral</h4>
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-300">"The perfect balance between simplicity and depth. Every match feels different."</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-16 gradient-bg">
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-600 text-white">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Command Your Army?</h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto text-gray-300">Join thousands of players in epic strategic battles. No download required - play instantly in your browser!</p>
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-8 py-4 rounded-lg text-lg transition animate-pulse-custom">
-                <i class="fas fa-play mr-2"></i> Play Now - It's Free!
-            </button>
+            <h2 class="text-3xl font-bold mb-6">Ready to Start Your Journey?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of young entrepreneurs and students who are already connecting and collaborating on our platform.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#" class="px-8 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-all font-medium">Sign Up Free</a>
+                <a href="#" class="px-8 py-3 border border-white text-white rounded-lg hover:bg-blue-700 transition-all font-medium">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Have questions? We're here to help you get started on your entrepreneurial journey.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-xl shadow-md overflow-hidden">
+                <div class="md:flex">
+                    <!-- Contact Info -->
+                    <div class="md:w-1/3 bg-blue-600 text-white p-8">
+                        <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="flex items-start mb-6">
+                            <i class="fas fa-envelope mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-medium">Email Us</h4>
+                                <p class="text-blue-100">hello@globalyouthconnect.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-6">
+                            <i class="fas fa-map-marker-alt mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-medium">Our Office</h4>
+                                <p class="text-blue-100">123 Innovation Drive, San Francisco, CA 94107</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-medium">Call Us</h4>
+                                <p class="text-blue-100">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-medium mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <div class="md:w-2/3 p-8">
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="John Doe">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="john@example.com">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="How can we help?">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your message here..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 py-8 border-t border-gray-800">
+    <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                    <i class="fas fa-chess-king text-2xl text-yellow-400"></i>
-                    <h2 class="text-xl font-bold">Generals<span class="text-yellow-400">Conquest</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-lightbulb text-blue-400 text-2xl"></i>
+                        <span class="text-xl font-bold">GlobalYouthConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Empowering young entrepreneurs worldwide to connect, collaborate, and create.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="flex space-x-6 mb-4 md:mb-0">
-                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-reddit"></i></a>
-                    <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-youtube"></i></a>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Success Stories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Contact</a></li>
+                    </ul>
                 </div>
-                <div class="text-gray-400 text-sm">
-                    &copy; 2023 GeneralsConquest. All rights reserved.
+                
+                <!-- Column 3 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Entrepreneur Guides</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Webinars</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Events</a></li>
+                    </ul>
                 </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 GlobalYouthConnect. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Welcome Back</h3>
+                <button id="close-login-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form>
+                <div class="mb-4">
+                    <label for="login-email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                    <input type="email" id="login-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="your@email.com">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="login-password" class="block text-gray-700 font-medium mb-2">Password</label>
+                    <input type="password" id="login-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium mb-4">Login</button>
+                
+                <div class="text-center mb-6">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Forgot password?</a>
+                </div>
+                
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <button type="button" class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all">
+                        <i class="fab fa-google text-red-500 mr-2"></i>
+                        <span>Google</span>
+                    </button>
+                    <button type="button" class="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all">
+                        <i class="fab fa-facebook-f text-blue-600 mr-2"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+                
+                <div class="text-center text-sm">
+                    <span class="text-gray-600">Don't have an account?</span>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 ml-1">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
-
-        // Mini game simulation
-        const miniGame = document.getElementById('mini-game');
-        const colors = [
-            'bg-gray-600', // Empty
-            'bg-blue-500', // Player 1
-            'bg-red-500',  // Player 2
-            'bg-green-500', // Player 3
-            'bg-purple-500', // Player 4
-            'bg-yellow-500 border-2 border-yellow-700', // General
-            'bg-gray-300', // Mountain
-            'bg-blue-200', // City
-        ];
-
-        // Create game grid
-        for (let i = 0; i < 100; i++) {
-            const cell = document.createElement('div');
-            cell.className = `game-cell w-full h-full rounded-sm ${colors[Math.floor(Math.random() * colors.length)]}`;
-            miniGame.appendChild(cell);
-        }
-
-        // Animate some cells to simulate gameplay
-        setInterval(() => {
-            const cells = miniGame.querySelectorAll('.game-cell');
-            const randomIndex = Math.floor(Math.random() * cells.length);
-            
-            // Reset all cells first
-            cells.forEach(cell => {
-                if (cell.classList.contains('bg-blue-600')) {
-                    cell.classList.remove('bg-blue-600');
-                    cell.classList.add('bg-blue-500');
-                }
-                if (cell.classList.contains('bg-red-600')) {
-                    cell.classList.remove('bg-red-600');
-                    cell.classList.add('bg-red-500');
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
                 }
             });
-            
-            // Highlight a random cell
-            if (cells[randomIndex].classList.contains('bg-blue-500')) {
-                cells[randomIndex].classList.remove('bg-blue-500');
-                cells[randomIndex].classList.add('bg-blue-600');
-            } else if (cells[randomIndex].classList.contains('bg-red-500')) {
-                cells[randomIndex].classList.remove('bg-red-500');
-                cells[randomIndex].classList.add('bg-red-600');
+        });
+        
+        // Login modal functionality
+        const loginModal = document.getElementById('login-modal');
+        const closeLoginModal = document.getElementById('close-login-modal');
+        
+        // Show login modal when login button is clicked
+        document.querySelectorAll('[href="#login"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.classList.remove('hidden');
+            });
+        });
+        
+        // Close login modal
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking outside
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.add('hidden');
             }
-        }, 1000);
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.card-hover, [class*="transition-all"]');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('opacity-100', 'translate-y-0');
+                    element.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        };
+        
+        // Initialize animation classes
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.card-hover, [class*="transition-all"]');
+            animatedElements.forEach(element => {
+                element.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-500', 'ease-out');
+            });
+            
+            // Trigger initial animation check
+            animateOnScroll();
+        });
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', animateOnScroll);
     </script>
 </body>
 </html>
