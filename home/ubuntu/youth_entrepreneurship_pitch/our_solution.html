@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap');
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5F9FF;
+        color: #333333;
+      }
+      
+      .content {
+        padding: 40px 60px;
+        height: 100%;
+      }
+      
+      h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        color: #4285F4;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #4285F4;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+      
+      p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      
+      .solution-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 30px;
+        margin-top: 30px;
+      }
+      
+      .solution-item {
+        background: white;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: flex-start;
+      }
+      
+      .solution-icon {
+        font-size: 30px;
+        margin-right: 20px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      
+      .talent-matching {
+        color: white;
+        background: #4285F4;
+      }
+      
+      .ai-assistant {
+        color: white;
+        background: #34A853;
+      }
+      
+      .idea-review {
+        color: white;
+        background: #FBBC05;
+      }
+      
+      .funding-channel {
+        color: white;
+        background: #EA4335;
+      }
+      
+      .solution-content h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      
+      .solution-content p {
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+      
+      .platform-image {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .platform-image img {
+        width: 600px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="content">
+        <h1>Our Solution</h1>
+        
+        <p>Our platform solves the challenges young entrepreneurs face with four integrated components:</p>
+        
+        <div class="solution-grid">
+          <div class="solution-item">
+            <div class="solution-icon talent-matching">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="solution-content">
+              <h3>Smart Talent Matching</h3>
+              <p>AI-powered algorithm connects founders with complementary skills, experience, and goals to build balanced teams.</p>
+            </div>
+          </div>
+          
+          <div class="solution-item">
+            <div class="solution-icon ai-assistant">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="solution-content">
+              <h3>AI Entrepreneurship Assistant</h3>
+              <p>Provides idea validation, business planning, market research, and task management to guide founders through the startup journey.</p>
+            </div>
+          </div>
+          
+          <div class="solution-item">
+            <div class="solution-icon idea-review">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="solution-content">
+              <h3>Idea Review & Ranking System</h3>
+              <p>Community-driven platform where ideas are shared, refined through feedback, and ranked based on potential and innovation.</p>
+            </div>
+          </div>
+          
+          <div class="solution-item">
+            <div class="solution-icon funding-channel">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <div class="solution-content">
+              <h3>Funding Incubation Channel</h3>
+              <p>Connects promising projects with investors, grants, and incubation opportunities through verified partnerships.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="platform-image">
+          <img src="/home/ubuntu/youth_entrepreneurship_pitch/images/71ohm3sSoLqo.webp" alt="Platform Interface" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

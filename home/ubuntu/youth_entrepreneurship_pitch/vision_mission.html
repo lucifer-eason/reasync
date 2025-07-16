@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap');
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5F9FF;
+        color: #333333;
+      }
+      
+      .content {
+        padding: 40px 60px;
+        height: 100%;
+      }
+      
+      h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        color: #4285F4;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #4285F4;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+      
+      h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        color: #34A853;
+        margin-bottom: 15px;
+      }
+      
+      p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      
+      .vision-mission-container {
+        display: flex;
+        gap: 40px;
+        margin-top: 20px;
+      }
+      
+      .section {
+        flex: 1;
+        padding: 25px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      
+      .icon {
+        font-size: 36px;
+        margin-bottom: 15px;
+      }
+      
+      .vision-icon {
+        color: #4285F4;
+      }
+      
+      .mission-icon {
+        color: #34A853;
+      }
+      
+      .image-container {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .image {
+        width: 500px;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      .quote {
+        font-family: 'Montserrat', sans-serif;
+        font-style: italic;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 30px;
+        color: #666666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="content">
+        <h1>Vision & Mission</h1>
+        
+        <div class="vision-mission-container">
+          <div class="section">
+            <div class="icon vision-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h2>Our Vision</h2>
+            <p>We aim to build a global top-tier young entrepreneur community, making entrepreneurship fairer and more efficient for the next generation of innovators.</p>
+            <p>By connecting the world's smartest youth, we create an ecosystem where ideas flourish and transform into impactful ventures.</p>
+          </div>
+          
+          <div class="section">
+            <div class="icon mission-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h2>Our Mission</h2>
+            <p>Young people are highly creative but lack channels and resources to implement their ideas. We're solving this fundamental disconnect.</p>
+            <p>We provide the platform, tools, and connections needed to transform university projects into real-world products and services.</p>
+          </div>
+        </div>
+        
+        <div class="image-container">
+          <img src="/home/ubuntu/youth_entrepreneurship_pitch/images/gXoXap55uK2q.jpg" alt="Young entrepreneurs collaborating" class="image">
+        </div>
+        
+        <p class="quote">"We believe the future belongs to young people and to those who dare to dream and act."</p>
+      </div>
+    </div>
+  </body>
+</html>
+
