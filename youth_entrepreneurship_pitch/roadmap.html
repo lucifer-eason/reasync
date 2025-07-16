@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap');
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5F9FF;
+        color: #333333;
+      }
+      
+      .content {
+        padding: 40px 60px;
+        height: 100%;
+      }
+      
+      h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        color: #4285F4;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #4285F4;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+      
+      h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        color: #34A853;
+        margin-bottom: 15px;
+      }
+      
+      p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      
+      .roadmap-container {
+        display: flex;
+        gap: 40px;
+        margin-top: 30px;
+      }
+      
+      .roadmap-text {
+        flex: 1;
+      }
+      
+      .roadmap-visual {
+        flex: 1;
+      }
+      
+      .timeline {
+        position: relative;
+        margin-top: 20px;
+      }
+      
+      .timeline-item {
+        display: flex;
+        margin-bottom: 30px;
+        position: relative;
+      }
+      
+      .timeline-date {
+        width: 120px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        color: #4285F4;
+        padding-top: 5px;
+      }
+      
+      .timeline-content {
+        flex: 1;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+      
+      .timeline-content:before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 15px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid white;
+      }
+      
+      .timeline-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      
+      .timeline-description {
+        font-size: 16px;
+        color: #666666;
+      }
+      
+      .milestone-icon {
+        position: absolute;
+        left: 110px;
+        top: 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4285F4;
+        z-index: 1;
+      }
+      
+      .milestone-line {
+        position: absolute;
+        left: 119px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #E1E5EA;
+        z-index: 0;
+      }
+      
+      .q3-2025 {
+        color: #4285F4;
+      }
+      
+      .q4-2025 {
+        color: #34A853;
+      }
+      
+      .q1-2026 {
+        color: #FBBC05;
+      }
+      
+      .q2-2026 {
+        color: #EA4335;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="content">
+        <h1>Roadmap</h1>
+        
+        <div class="roadmap-container">
+          <div class="roadmap-text">
+            <h2>Our Development Plan</h2>
+            <p>We have a clear, phased approach to build and scale our platform over the next 12 months:</p>
+            
+            <div class="timeline">
+              <div class="milestone-line"></div>
+              
+              <div class="timeline-item">
+                <div class="milestone-icon" style="background: #4285F4;"></div>
+                <div class="timeline-date q3-2025">Q3 2025</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Beta Platform Launch</div>
+                  <div class="timeline-description">Release MVP with core features and acquire first 100 users through university partnerships</div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="milestone-icon" style="background: #34A853;"></div>
+                <div class="timeline-date q4-2025">Q4 2025</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">AI Integration</div>
+                  <div class="timeline-description">Implement AI assistant and talent matching algorithm to enhance user experience and team formation</div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="milestone-icon" style="background: #FBBC05;"></div>
+                <div class="timeline-date q1-2026">Q1 2026</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">First Funding Round</div>
+                  <div class="timeline-description">Initiate seed funding round with target of $100K to accelerate growth and feature development</div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="milestone-icon" style="background: #EA4335;"></div>
+                <div class="timeline-date q2-2026">Q2 2026</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Global Expansion</div>
+                  <div class="timeline-description">Partner with overseas universities and host online entrepreneurship challenge to drive international adoption</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="roadmap-visual">
+            <div style="height: 400px;">
+              <canvas id="roadmapChart"></canvas>
+            </div>
+            
+            <div style="margin-top: 40px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);">
+              <h2 style="font-size: 20px; margin-bottom: 10px;">Key Success Metrics</h2>
+              <ul style="list-style-type: none; padding: 0;">
+                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                  <i class="fas fa-users" style="color: #4285F4; margin-right: 10px;"></i>
+                  <span>1,000+ active users by end of Q4 2025</span>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                  <i class="fas fa-handshake" style="color: #34A853; margin-right: 10px;"></i>
+                  <span>50+ successful team formations</span>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                  <i class="fas fa-university" style="color: #FBBC05; margin-right: 10px;"></i>
+                  <span>Partnerships with 10+ universities</span>
+                </li>
+                <li style="display: flex; align-items: center;">
+                  <i class="fas fa-globe" style="color: #EA4335; margin-right: 10px;"></i>
+                  <span>Presence in 5+ countries</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Chart for user growth projection
+      const ctx = document.getElementById('roadmapChart').getContext('2d');
+      const roadmapChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Q3 2025', 'Q4 2025', 'Q1 2026', 'Q2 2026'],
+          datasets: [{
+            label: 'Projected User Growth',
+            data: [100, 1000, 5000, 10000],
+            backgroundColor: 'rgba(66, 133, 244, 0.2)',
+            borderColor: '#4285F4',
+            borderWidth: 3,
+            tension: 0.4,
+            pointBackgroundColor: '#4285F4',
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Projected User Growth',
+              font: {
+                family: 'Montserrat',
+                size: 16,
+                weight: 'bold'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.raw.toLocaleString() + ' users';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Users',
+                font: {
+                  family: 'Open Sans',
+                  size: 14
+                }
+              },
+              ticks: {
+                callback: function(value) {
+                  if (value >= 1000) {
+                    return value / 1000 + 'k';
+                  }
+                  return value;
+                }
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Timeline',
+                font: {
+                  family: 'Open Sans',
+                  size: 14
+                }
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+

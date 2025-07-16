@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap');
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5F9FF;
+        color: #333333;
+      }
+      
+      .content {
+        padding: 40px 60px;
+        height: 100%;
+      }
+      
+      h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        color: #4285F4;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #4285F4;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+      
+      h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        color: #34A853;
+        margin-bottom: 15px;
+      }
+      
+      p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      
+      .funding-container {
+        display: flex;
+        gap: 40px;
+        margin-top: 30px;
+      }
+      
+      .funding-details {
+        flex: 1;
+      }
+      
+      .funding-chart {
+        flex: 1;
+      }
+      
+      .funding-amount {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 48px;
+        color: #4285F4;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+      }
+      
+      .funding-amount i {
+        margin-right: 15px;
+        font-size: 36px;
+      }
+      
+      .funding-type {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        color: #666666;
+        margin-bottom: 30px;
+      }
+      
+      .allocation-list {
+        margin-top: 20px;
+      }
+      
+      .allocation-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      
+      .allocation-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      
+      .product-dev {
+        background-color: #4285F4;
+        color: white;
+      }
+      
+      .marketing {
+        background-color: #34A853;
+        color: white;
+      }
+      
+      .incentive {
+        background-color: #FBBC05;
+        color: white;
+      }
+      
+      .legal {
+        background-color: #EA4335;
+        color: white;
+      }
+      
+      .allocation-text {
+        flex: 1;
+      }
+      
+      .allocation-title {
+        font-weight: 600;
+        font-size: 18px;
+      }
+      
+      .allocation-percent {
+        font-weight: 700;
+        margin-left: 10px;
+      }
+      
+      .allocation-description {
+        font-size: 16px;
+        color: #666666;
+      }
+      
+      .timeline {
+        margin-top: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      
+      .timeline-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #4285F4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="content">
+        <h1>Funding Ask</h1>
+        
+        <div class="funding-container">
+          <div class="funding-details">
+            <h2>Seed Funding Request</h2>
+            <p>We are seeking initial capital to accelerate platform development, user acquisition, and establish key partnerships.</p>
+            
+            <div class="funding-amount">
+              <i class="fas fa-hand-holding-usd"></i> $100,000
+            </div>
+            <div class="funding-type">Pre-seed round with flexible terms (equity or convertible note)</div>
+            
+            <h2>Fund Allocation</h2>
+            <div class="allocation-list">
+              <div class="allocation-item">
+                <div class="allocation-icon product-dev">
+                  <i class="fas fa-code"></i>
+                </div>
+                <div class="allocation-text">
+                  <div class="allocation-title">Product Development <span class="allocation-percent">40%</span></div>
+                  <div class="allocation-description">AI integration, frontend optimization, and platform scaling</div>
+                </div>
+              </div>
+              
+              <div class="allocation-item">
+                <div class="allocation-icon marketing">
+                  <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="allocation-text">
+                  <div class="allocation-title">Marketing <span class="allocation-percent">30%</span></div>
+                  <div class="allocation-description">Global social media ads and university partnership activities</div>
+                </div>
+              </div>
+              
+              <div class="allocation-item">
+                <div class="allocation-icon incentive">
+                  <i class="fas fa-gift"></i>
+                </div>
+                <div class="allocation-text">
+                  <div class="allocation-title">Startup Incentive Fund <span class="allocation-percent">20%</span></div>
+                  <div class="allocation-description">Rewards for quality platform ideas and early adopters</div>
+                </div>
+              </div>
+              
+              <div class="allocation-item">
+                <div class="allocation-icon legal">
+                  <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="allocation-text">
+                  <div class="allocation-title">Legal & Operations <span class="allocation-percent">10%</span></div>
+                  <div class="allocation-description">Legal compliance, operational expenses, and administration</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="funding-chart">
+            <div style="height: 350px;">
+              <canvas id="allocationChart"></canvas>
+            </div>
+            
+            <div class="timeline">
+              <div class="timeline-title">
+                <i class="fas fa-calendar-alt"></i> Investment Timeline
+              </div>
+              <p>Funding will support 12 months of operations, with key milestones including beta launch, first 1,000 users, and initial university partnerships. We project reaching breakeven by month 18.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Chart for fund allocation
+      const ctx = document.getElementById('allocationChart').getContext('2d');
+      const allocationChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Product Development', 'Marketing', 'Startup Incentive Fund', 'Legal & Operations'],
+          datasets: [{
+            data: [40, 30, 20, 10],
+            backgroundColor: [
+              '#4285F4',
+              '#34A853',
+              '#FBBC05',
+              '#EA4335'
+            ],
+            borderColor: '#FFFFFF',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Fund Allocation Breakdown',
+              font: {
+                family: 'Montserrat',
+                size: 16,
+                weight: 'bold'
+              }
+            },
+            legend: {
+              position: 'bottom',
+              labels: {
+                font: {
+                  family: 'Open Sans',
+                  size: 14
+                },
+                padding: 20
+              }
+            }
+          },
+          maintainAspectRatio: false
+        }
+      });
+    </script>
+  </body>
+</html>
+
