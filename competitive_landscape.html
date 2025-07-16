@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap');
+      
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #F5F9FF;
+        color: #333333;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .content {
+        padding: 40px 60px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        color: #4285F4;
+        margin-bottom: 20px;
+        border-bottom: 3px solid #4285F4;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+      
+      p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      
+      .main-content {
+        display: flex;
+        gap: 30px;
+        flex: 1;
+      }
+      
+      .table-container {
+        flex: 1;
+      }
+      
+      .chart-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      
+      th {
+        background-color: #4285F4;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 12px;
+        text-align: center;
+      }
+      
+      td {
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+        border-bottom: 1px solid #eee;
+      }
+      
+      tr:last-child td {
+        border-bottom: none;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      
+      .highlight {
+        background-color: rgba(52, 168, 83, 0.1);
+      }
+      
+      .check {
+        color: #34A853;
+        font-size: 20px;
+      }
+      
+      .cross {
+        color: #EA4335;
+        font-size: 20px;
+      }
+      
+      .our-platform {
+        font-weight: 700;
+        color: #4285F4;
+      }
+      
+      .key-advantage {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      
+      .advantage-item {
+        flex: 1;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+      }
+      
+      .advantage-icon {
+        font-size: 24px;
+        margin-right: 10px;
+        color: #4285F4;
+        flex-shrink: 0;
+      }
+      
+      .advantage-content {
+        flex: 1;
+      }
+      
+      .advantage-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 5px;
+        color: #333333;
+      }
+      
+      .advantage-description {
+        font-size: 14px;
+        color: #666666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="content">
+        <h1>Competitive Landscape</h1>
+        
+        <p>Our platform offers unique advantages compared to existing entrepreneurship platforms, with a specific focus on young founders under 25.</p>
+        
+        <div class="main-content">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Platform</th>
+                  <th>Age Group</th>
+                  <th>Strict Screening</th>
+                  <th>Idea Community</th>
+                  <th>AI Assistant</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AngelList</td>
+                  <td>All Ages</td>
+                  <td><i class="fas fa-times cross"></i></td>
+                  <td><i class="fas fa-times cross"></i></td>
+                  <td><i class="fas fa-times cross"></i></td>
+                </tr>
+                <tr>
+                  <td>Y Combinator</td>
+                  <td>All Ages</td>
+                  <td><i class="fas fa-check check"></i></td>
+                  <td><i class="fas fa-times cross"></i></td>
+                  <td><i class="fas fa-times cross"></i></td>
+                </tr>
+                <tr>
+                  <td>Product Hunt</td>
+                  <td>All Ages</td>
+                  <td><i class="fas fa-times cross"></i></td>
+                  <td><i class="fas fa-check check"></i></td>
+                  <td><i class="fas fa-times cross"></i></td>
+                </tr>
+                <tr class="highlight">
+                  <td class="our-platform">Our Platform</td>
+                  <td>&lt;25 Years</td>
+                  <td><i class="fas fa-check check"></i></td>
+                  <td><i class="fas fa-check check"></i></td>
+                  <td><i class="fas fa-check check"></i></td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <div class="key-advantage">
+              <div class="advantage-item">
+                <div class="advantage-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="advantage-content">
+                  <div class="advantage-title">Youth-Focused</div>
+                  <div class="advantage-description">Exclusively for entrepreneurs under 25</div>
+                </div>
+              </div>
+              
+              <div class="advantage-item">
+                <div class="advantage-icon">
+                  <i class="fas fa-robot"></i>
+                </div>
+                <div class="advantage-content">
+                  <div class="advantage-title">AI-Powered</div>
+                  <div class="advantage-description">Integrated AI tools for business planning</div>
+                </div>
+              </div>
+              
+              <div class="advantage-item">
+                <div class="advantage-icon">
+                  <i class="fas fa-globe"></i>
+                </div>
+                <div class="advantage-content">
+                  <div class="advantage-title">Global Reach</div>
+                  <div class="advantage-description">Cross-border collaboration enabled</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <div style="height: 300px;">
+              <canvas id="competitiveChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Competitive positioning chart
+      const ctx = document.getElementById('competitiveChart').getContext('2d');
+      const competitiveChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Youth Focus', 'Screening Quality', 'Community Engagement', 'AI Integration', 'Global Reach'],
+          datasets: [
+            {
+              label: 'Our Platform',
+              data: [9, 8, 9, 10, 8],
+              backgroundColor: 'rgba(66, 133, 244, 0.2)',
+              borderColor: '#4285F4',
+              borderWidth: 2,
+              pointBackgroundColor: '#4285F4'
+            },
+            {
+              label: 'Y Combinator',
+              data: [5, 10, 6, 4, 7],
+              backgroundColor: 'rgba(52, 168, 83, 0.2)',
+              borderColor: '#34A853',
+              borderWidth: 2,
+              pointBackgroundColor: '#34A853'
+            },
+            {
+              label: 'AngelList',
+              data: [4, 3, 5, 2, 6],
+              backgroundColor: 'rgba(251, 188, 5, 0.2)',
+              borderColor: '#FBBC05',
+              borderWidth: 2,
+              pointBackgroundColor: '#FBBC05'
+            }
+          ]
+        },
+        options: {
+          scales: {
+            r: {
+              angleLines: {
+                display: true
+              },
+              suggestedMin: 0,
+              suggestedMax: 10,
+              ticks: {
+                stepSize: 2,
+                backdropColor: 'transparent'
+              }
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Competitive Positioning (Scale: 1-10)',
+              font: {
+                family: 'Montserrat',
+                size: 16,
+                weight: 'bold'
+              }
+            }
+          },
+          maintainAspectRatio: false
+        }
+      });
+    </script>
+  </body>
+</html>
+
