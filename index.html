@@ -1140,6 +1140,16 @@
                 left: 19px;
             }
         }
+
+        /* Styles from pasted_content.txt */
+        #lang-select {
+            margin: 20px;
+        }
+        #icp-warning {
+            color: red;
+            font-weight: bold;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -2103,7 +2113,7 @@
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        return context.dataset.label + ': ' + context.raw.toLocaleString() + ' users';
+                                        return context.label + ': ' + context.raw.toLocaleString() + ' users';
                                     }
                                 }
                             }
@@ -2250,7 +2260,135 @@
             }
             initializeCharts();
         });
+
+        // Scripts from pasted_content.txt
+        // 简单的语言字典（你可以按需扩展）
+        const translations = {
+            "en": {
+                title: "Welcome to Our Website",
+                welcome: "Hello! This page is displayed in English."
+            },
+            "zh-CN": {
+                title: "欢迎来到我们的网站",
+                welcome: "您好！本页面显示简体中文。"
+            },
+            "zh-TW": {
+                title: "歡迎來到我們的網站",
+                welcome: "您好！本頁面顯示繁體中文。"
+            },
+            "es": {
+                title: "Bienvenido a nuestro sitio web",
+                welcome: "¡Hola! Esta página se muestra en español."
+            },
+            "fr": {
+                title: "Bienvenue sur notre site Web",
+                welcome: "Bonjour! Cette page est affichée en français."
+            },
+            "de": {
+                title: "Willkommen auf unserer Webseite",
+                welcome: "Hallo! Diese Seite wird auf Deutsch angezeigt."
+            },
+            "ar": {
+                title: "مرحبا بكم في موقعنا",
+                welcome: "مرحبًا! يتم عرض هذه الصفحة باللغة العربية."
+            },
+            "ru": {
+                title: "Добро пожаловать на наш сайт",
+                welcome: "Здравствуйте! Эта страница отображается на русском."
+            },
+            "ja": {
+                title: "私たちのウェブサイトへようこそ",
+                welcome: "こんにちは！このページは日本語で表示されています。"
+            },
+            "ko": {
+                title: "우리 웹사이트에 오신 것을 환영합니다",
+                welcome: "안녕하세요! 이 페이지는 한국어로 표시됩니다。"
+            }
+        };
+
+        // 检测大陆IP的国家码（CN）提示备案
+        function showIcpWarning() {
+            const warningEl = document.getElementById('icp-warning');
+            if (warningEl) {
+                warningEl.style.display = 'block';
+            }
+        }
+
+        // 设置页面语言内容
+        function setLanguage(lang) {
+            const text = translations[lang] || translations["en"];
+            const titleEl = document.getElementById('title');
+            const welcomeMsgEl = document.getElementById('welcome-msg');
+            const langSelectEl = document.getElementById('lang-select');
+
+            if (titleEl) titleEl.textContent = text.title;
+            if (welcomeMsgEl) welcomeMsgEl.textContent = text.welcome;
+            if (langSelectEl) langSelectEl.value = lang;
+        }
+
+        // 语言切换事件
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            langSelect.addEventListener('change', (e) => {
+                const selectedLang = e.target.value;
+                setLanguage(selectedLang);
+            });
+        }
+
+        // 获取访问IP及国家（使用ipapi.co免费接口，注意有请求频率限制）
+        async function detectLanguageByIp() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                let userLang = "en"; // 默认英语
+
+                // 简单判断国家代码映射到语言
+                switch(data.country_code) {
+                    case "CN": userLang = "zh-CN"; showIcpWarning(); break;
+                    case "TW": userLang = "zh-TW"; break;
+                    case "ES": userLang = "es"; break;
+                    case "FR": userLang = "fr"; break;
+                    case "DE": userLang = "de"; break;
+                    case "AR": userLang = "ar"; break;
+                    case "RU": userLang = "ru"; break;
+                    case "JP": userLang = "ja"; break;
+                    case "KR": userLang = "ko"; break;
+                    case "US": userLang = "en"; break;
+                    default: userLang = "en"; break;
+                }
+                setLanguage(userLang);
+            } catch(e) {
+                console.error("IP检测失败，使用默认语言:", e);
+                setLanguage("en");
+            }
+        }
+
+        // 页面加载时执行
+        window.addEventListener('load', () => {
+            initializeCharts();
+            detectLanguageByIp();
+        });
     </script>
+
+    <!-- Content from pasted_content.txt -->
+    <div id="icp-warning" style="display:none;">您访问的网站尚未进行ICP备案，请注意合规运营！</div>
+
+    <select id="lang-select">
+        <option value="en">English</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="ar">العربية</option>
+        <option value="ru">Русский</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+    </select>
+
+    <h1 id="title"></h1>
+    <p id="welcome-msg"></p>
+
 </body>
     <footer style="background-color: #0f172a; color: white; padding: 2rem 1rem; text-align: center;">
   <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">Connect With Us</h2>
